@@ -9,7 +9,7 @@ of terms and example values for them:
 * product: 'firefox' or 'thunderbird'
 * version: 7.0, 8.0b3, 9.0a2
 * build: 'beta', 'aurora', or None (for latest)
-* platform: 'os_windows', 'os_linux', or 'os_osx'
+* platform: 'os_windows', 'os_linux', 'os_linux64' or 'os_osx'
 * locale: a string in the form of 'en-US'
 """
 
@@ -88,6 +88,7 @@ def make_aurora_link(product, version, platform, locale,
     filenames = {
         'os_windows': 'win32.installer.exe',
         'os_linux': 'linux-i686.tar.bz2',
+        'os_linux64': 'linux-x86_64.tar.bz2',
         'os_osx': 'mac.dmg'
     }
     if (not force_full_installer and settings.AURORA_STUB_INSTALLER
@@ -110,6 +111,7 @@ def make_download_link(product, build, version, platform, locale,
     platform = {
         'os_windows': 'win',
         'os_linux': 'linux',
+        'os_linux64': 'linux64',
         'os_osx': 'osx'
     }[platform]
 
@@ -174,7 +176,7 @@ def download_button(ctx, id, format='large', build=None, force_direct=False,
 
     # Gather data about the build for each platform
     builds = []
-    for platform in ['Windows', 'Linux', 'OS X']:
+    for platform in ['Windows', 'Linux', 'Linux64', 'OS X']:
         # Fallback to en-US if this platform/version isn't available
         # for the current locale
         _locale = locale
@@ -186,7 +188,8 @@ def download_button(ctx, id, format='large', build=None, force_direct=False,
         platform_pretty = {
             'os_osx': 'Mac OS X',
             'os_windows': 'Windows',
-            'os_linux': 'Linux'
+            'os_linux': 'Linux',
+            'os_linux64': 'Linux x86_64'
         }[platform]
 
         # And generate all the info
