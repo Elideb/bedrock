@@ -32,14 +32,14 @@ class TestDownloadButtons(unittest.TestCase):
             assert_not_equal(pq(link).attr('href').find(key), -1)
 
     def check_dumb_button(self, doc):
-        # Make sure 4 links are present
+        # Make sure 5 links are present
         links = doc('li a')
-        eq_(links.length, 4)
+        eq_(links.length, 5)
 
-        self.check_desktop_links(links[:3])
+        self.check_desktop_links(links[:4])
 
         # Check that last link is Android
-        eq_(pq(links[3]).attr('href'),
+        eq_(pq(links[4]).attr('href'),
             'https://market.android.com/details?id=org.mozilla.firefox')
 
     def test_button(self, format='large'):
@@ -71,9 +71,9 @@ class TestDownloadButtons(unittest.TestCase):
         doc = pq(render("{{ download_button('button', force_direct=true) }}",
                         {'request': get_request}))
 
-        # Check that the first 3 links are direct.
+        # Check that the first 4 links are direct.
         links = doc('.download-list a')
-        for link in links[:3]:
+        for link in links[:4]:
             link = pq(link)
             ok_(link.attr('href')
                 .startswith('https://download.mozilla.org'))
@@ -91,13 +91,13 @@ class TestDownloadButtons(unittest.TestCase):
         doc = pq(render("{{ download_button('button') }}",
                         {'request': get_request}))
 
-        # The first 3 links should be for desktop.
+        # The first 4 links should be for desktop.
         links = doc('.download-list a')
-        for link in links[:3]:
+        for link in links[:4]:
             ok_(pq(link).attr('data-direct-link')
                 .startswith('https://download.mozilla.org'))
-        # The fourth link is mobile and should not have the attr
-        ok_(pq(links[3]).attr('data-direct-link') is None)
+        # The fifth link is mobile and should not have the attr
+        ok_(pq(links[4]).attr('data-direct-link') is None)
 
     @patch.object(settings, 'AURORA_STUB_INSTALLER', True)
     def test_stub_aurora_installer_enabled_en_us(self):
@@ -108,7 +108,7 @@ class TestDownloadButtons(unittest.TestCase):
         doc = pq(render("{{ download_button('button', build='aurora') }}",
                         {'request': get_request}))
 
-        links = doc('.download-list a')[:3]
+        links = doc('.download-list a')[:4]
         ok_('stub' in pq(links[0]).attr('href'))
         for link in links[1:]:
             ok_('stub' not in pq(link).attr('href'))
@@ -134,7 +134,7 @@ class TestDownloadButtons(unittest.TestCase):
         doc = pq(render("{{ download_button('button', build='aurora') }}",
                         {'request': get_request}))
 
-        links = doc('li a')[:3]
+        links = doc('li a')[:4]
         for link in links:
             ok_('stub' not in pq(link).attr('href'))
 
@@ -146,7 +146,7 @@ class TestDownloadButtons(unittest.TestCase):
         doc = pq(render("{{ download_button('button', build='aurora') }}",
                         {'request': get_request}))
 
-        links = doc('.download-list a')[:3]
+        links = doc('.download-list a')[:4]
         for link in links:
             ok_('stub' not in pq(link).attr('href'))
 
@@ -159,7 +159,7 @@ class TestDownloadButtons(unittest.TestCase):
                             force_full_installer=True) }}",
                         {'request': get_request}))
 
-        links = doc('.download-list a')[:3]
+        links = doc('.download-list a')[:4]
         for link in links:
             ok_('stub' not in pq(link).attr('href'))
 
@@ -172,6 +172,6 @@ class TestDownloadButtons(unittest.TestCase):
                             force_full_installer=True) }}",
                         {'request': get_request}))
 
-        links = doc('.download-list a')[:3]
+        links = doc('.download-list a')[:4]
         for link in links:
             ok_('stub' not in pq(link).attr('href'))
