@@ -83,7 +83,8 @@
             <th colspan="2" scope="col">{{ _('Language') }}</th>
             <th scope="col">{{ _('Windows') }}</th>
             <th scope="col">{{ _('Mac OS X') }}</th>
-            <th scope="col">{{ _('Linux') }}</th>
+            <th scope="col">{{ _('Linux 32bit') }}</th>
+            <th scope="col">{{ _('Linux 64bit') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -103,7 +104,8 @@
     <td lang="{{ build.locale }}">{{ build.name_native }}</td>
     {{ build_link(build, 'Windows', 'win', _('Download for Windows')) }}
     {{ build_link(build, 'OS X', 'mac', _('Download for Mac OS X')) }}
-    {{ build_link(build, 'Linux', 'linux', _('Download for Linux')) }}
+    {{ build_link(build, 'Linux', 'linux', _('Download for Linux 32bit')) }}
+    {{ build_link(build, 'Linux64', 'linux64', _('Download for Linux 64bit')) }}
   </tr>
 {% endmacro %}
 
