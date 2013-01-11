@@ -6,7 +6,114 @@
     }
 }
 
+#main-pager {
+    .pager-tabs {
+        margin: 0;
+        text-align: center;
+        .open-sans;
+        font-size: @smallFontSize;
+        text-transform: uppercase;
+        li {
+            .inline-block;
+            position: relative;
+            right: 8px;
+            margin: 0;
+            width: 218px;
+            a {
+                display: block;
+                position: relative;
+                z-index: 10;
+                background: url(/media/img/firefox/pager-tabs.png) 0 0 no-repeat;
+                height: 40px;
+                line-height: 40px;
+                color: @linkSkyBlue;
+                &.selected {
+                    background-position: 100% 0;
+                    color: @textColorSecondary;
+                    z-index: 20;
+                }
+            }
+        }
+        li:first-child {
+            left: 8px;
+        }
+    }
+    hgroup {
+        float: none;
+        margin-left: @baseLine / 2;
+        margin-right: @baseLine / 2;
+        margin-bottom: @baseLine;
+        h1 {
+            .large;
+        }
+        h2 {
+            font-size: 28px;
+            letter-spacing: -0.5px;
+        }
+    }
+}
+
+.release-content {
+    text-align: center;
+    #out-of-date {
+        #download {
+            text-align: left;
+            margin: @baseLine / 2;
+        }
+    }
+}
+
+.no-js .release-content .download-list{
+    display: none;
+}
+
+.organizations-content {
+    overflow: hidden;
+    text-align: center;
+    #download-column {
+        .span(4);
+        margin-top: 45px;
+        position: relative;
+        z-index: 10;
+        text-align: right;
+        aside {
+            text-align: left;
+        }
+    }
+}
+
+.beta-content {
+    overflow: hidden;
+    text-align: center;
+    #download-column {
+        .span(4);
+        margin-top: 45px;
+        position: relative;
+        z-index: 10;
+        text-align: right;
+        aside {
+            text-align: left;
+        }
+    }
+}
+
+.aurora-content {
+    overflow: hidden;
+    text-align: center;
+    #download-column {
+        .span(4);
+        margin-top: 45px;
+        position: relative;
+        z-index: 10;
+        text-align: right;
+        aside {
+            text-align: left;
+        }
+    }
+}
+
 #main-feature {
+    padding-bottom: 0px;
     h1 {
         font-size: 64px;
         .span-all;
@@ -18,10 +125,21 @@
         .span(10);
         line-height: 1.1;
     }
+    h3 {
+        font-size: 20px;
+        letter-spacing: -0.25px;
+        .span(10);
+        line-height: 1.1;
+    }
 }
 
 #language-search {
     .billboard();
+    margin-bottom: 0px;
+    @shadow: 0 0 0 0px;
+    .box-shadow(@shadow);
+    background: 0;
+    border-bottom: 0px;
     padding-top: @baseLine;
     padding-bottom: @baseLine;
     margin-left: @gridGutterWidth * 1.5;
@@ -38,7 +156,6 @@
     .search-column {
         .span(6);
         margin-right: ((@gridGutterWidth / 2) - 1px);
-        border-right: 1px dotted @borderColor;
         padding: 5px 0;
     }
     .other-column {
@@ -50,10 +167,11 @@
 }
 
 #main-content {
-    #localized {
+    padding-bottom: 0px;
+    .localized {
         .span-all();
     }
-    #localized-testing {
+    .localized-testing {
         .span-all();
         margin-top: @baseLine * 2;
     }

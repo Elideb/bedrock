@@ -30,35 +30,135 @@
              list="languages"
              {% if query %}value="{{ query }}"{% endif %}>
       <datalist id="languages">
-        {% for build in full_builds -%}
-          <option value="{{ build.name_en }}"></option>
-          <option value="{{ build.name_native }}"></option>
-        {% endfor -%}
-        {% for build in test_builds -%}
-          <option value="{{ build.name_en }}"></option>
-          <option value="{{ build.name_native }}"></option>
+        {% for locale in full_builds_locales -%}
+          <option value="{{ locale.name_en }}"></option>
+          <option value="{{ locale.name_native }}"></option>
         {% endfor -%}
       </datalist>
       <button class="button arrow" type="submit"><span>{{ _('Search') }}</span></button>
     </div>
-    <div class="other-column">
-      <h4>{{ _('Other Firefox downloads') }}</h4>
-      <a href="#localized-testing">{{ _('New languages still in beta') }}</a>
-    </div>
   </form>
 
-  <div id="main-content">
-    <div id="localized">
-      {{ build_table(full_builds,
-                      _('Fully localized versions')) }}
-    </div>
+  <div id="main-pager" class="pager pager-with-tabs">
 
-    <div id="localized-testing">
-      {{ build_table(test_builds,
-                      _('Localized versions in testing'),
-                      _('These localizations aren’t final. We’re waiting for more feedback from the community to perfect them.')) }}
-    </div>
-  </div>
+    <ul class="pager-tabs">
+      <li><a href="#release">{{_('Firefox')}}</a></li>
+      <li><a href="#organizations">{{_('Organizations')}}</a></li>
+      <li><a href="#beta">{{_('Beta')}}</a></li>
+      <li><a href="#aurora">{{_('Aurora')}}</a></li>
+    </ul>
+
+    <div class="billboard">
+      <div class="pager-content">
+
+        <div class="pager-page release-content default-page" id="release">
+          <script>// <![CDATA[
+          document.getElementById('release').id = 'page-release';
+          // ]]></script>
+
+          <hgroup id="main-feature">
+            <h2>{{_('Final release')}}</h2>
+            <h3>{{ _('Current stable version of Firefox, with the latest features and enhancements.') }}</h3>
+          </hgroup>
+
+          <a href="#localized-testing-release">{{ _('New languages still in beta') }}</a>
+
+          <div id="main-content">
+            <div class="localized" id="localized">
+              {{ build_table(full_builds,
+                              _('Fully localized versions')) }}
+            </div>
+
+            <div class="localized-testing" id="localized-testing-release">
+              {{ build_table(test_builds,
+                              _('Localized versions in testing'),
+                              _('These localizations aren’t final. We’re waiting for more feedback from the community to perfect them.')) }}
+            </div>
+          </div>
+        </div>
+        <!-- end of release-content -->
+
+        <div class="pager-page organizations-content" id="organizations">
+          <script>// <![CDATA[
+          document.getElementById('organizations').id = 'page-organizations';
+          // ]]></script>
+
+          <hgroup id="main-feature">
+            <h2>{{_('Extended Support Release')}}</h2>
+            <h3>{{ _('Firefox ESR is intended for groups who deploy and maintain the desktop environment in large organizations. <a href="../organizations/">Learn more</a>.') }}</h3>
+          </hgroup>
+
+          <a href="#localized-testing-esr">{{ _('New languages still in beta') }}</a>
+
+          <div id="main-content">
+            <div class="localized" id="localized">
+              {{ build_table(full_builds_esr,
+                              _('Fully localized versions')) }}
+            </div>
+
+            <div class="localized-testing" id="localized-testing-esr">
+              {{ build_table(test_builds_esr,
+                              _('Localized versions in testing'),
+                              _('These localizations aren’t final. We’re waiting for more feedback from the community to perfect them.')) }}
+            </div>
+          </div>
+        </div> <!-- end of esr-content -->
+
+        <div class="pager-page beta-content" id="beta">
+          <script>// <![CDATA[
+          document.getElementById('beta').id = 'page-beta';
+          // ]]></script>
+
+          <hgroup id="main-feature">
+            <h2>{{_('Beta release')}}</h2>
+            <h3>{{ _('Download Firefox Beta and experience cutting edge features before they make it to final release. Provide feedback to help us refine and polish the next version of Firefox.') }}</h3>
+          </hgroup>
+
+          <a href="#localized-testing-beta">{{ _('New languages still in beta') }}</a>
+
+          <div id="main-content">
+            <div class="localized" id="localized">
+              {{ build_table(full_builds_beta,
+                              _('Fully localized versions')) }}
+            </div>
+
+            <div class="localized-testing" id="localized-testing-beta">
+              {{ build_table(test_builds_beta,
+                              _('Localized versions in testing'),
+                              _('These localizations aren’t final. We’re waiting for more feedback from the community to perfect them.')) }}
+            </div>
+          </div>
+        </div>
+
+        <div class="pager-page aurora-content" id="aurora">
+          <script>// <![CDATA[
+          document.getElementById('aurora').id = 'page-aurora';
+          // ]]></script>
+
+          <hgroup id="main-feature">
+            <h2>{{_('Aurora release')}}</h2>
+            <h3>{{ _('Download Firefox Aurora to experience the newest features and innovations in an unstable environment even before they go to Beta. Give us feedback that will determine what makes it to Final Release and help shape the future of Firefox.') }}</h3>
+          </hgroup>
+
+          <a href="#localized-testing-aurora">{{ _('New languages still in beta') }}</a>
+
+          <div id="main-content">
+            <div class="localized" id="localized">
+              {{ build_table(full_builds_aurora,
+                              _('Fully localized versions')) }}
+            </div>
+
+            <div class="localized-testing" id="localized-testing-aurora">
+              {{ build_table(test_builds_aurora,
+                              _('Localized versions in testing'),
+                              _('These localizations aren’t final. We’re waiting for more feedback from the community to perfect them.')) }}
+            </div>
+          </div>
+        </div>
+
+    </div> <!-- pager-content -->
+  </div> <!-- billboard -->
+</div> <!-- main-pager -->
 {% endblock %}
 
 {% block js %}

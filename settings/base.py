@@ -314,6 +314,7 @@ MINIFY_BUNDLES = {
             'js/mozilla-input-placeholder.js',
         ),
         'firefox_all': (
+            'js/mozilla-pager.js',
             'js/firefox-language-search.js',
         ),
         'firefox-resp': (

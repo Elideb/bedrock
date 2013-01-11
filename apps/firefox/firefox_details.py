@@ -114,5 +114,33 @@ class FirefoxDetails(ProductDetails):
                              'lang': language,
                          })])
 
+    def get_filtered_available_locales(self, query=None):
+        """
+        Get a list of locale, English and native names available in at least
+        one version and build.
+        :param builds: a build dict from the JSON
+        :param query: a string to match against native or english locale name
+        :return: list
+        """
+        f_locales = []
+        f_names = []
+        for locale in self.firefox_primary_builds.keys() + self.firefox_beta_builds.keys():
+            if locale in f_locales:
+                continue
+
+            locale_info = {
+                'name_en': self.languages[locale]['English'],
+                'name_native': self.languages[locale]['native'],
+            }
+
+            # only include builds that match a search query
+            if query is not None and not self._matches_query(locale_info, query):
+                continue
+
+            f_locales.append(locale)
+            f_names.append(locale_info)
+
+        return sorted(f_names, key=itemgetter('name_en'))
+
 
 firefox_details = FirefoxDetails()

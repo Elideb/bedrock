@@ -126,10 +126,16 @@ def is_current_or_newer(user_version):
 
 
 def all_downloads(request):
-    version = firefox_details.latest_version('release')
     query = request.GET.get('q')
     return l10n_utils.render(request, 'firefox/all.html', {
-        'full_builds': firefox_details.get_filtered_full_builds(version, query),
-        'test_builds': firefox_details.get_filtered_test_builds(version, query),
+        'full_builds':        firefox_details.get_filtered_full_builds(firefox_details.latest_version('release'), query),
+        'full_builds_esr':    firefox_details.get_filtered_full_builds(firefox_details.latest_version('esr'), query),
+        'full_builds_beta':   firefox_details.get_filtered_full_builds(firefox_details.latest_version('beta'), query),
+        'full_builds_aurora': firefox_details.get_filtered_full_builds(firefox_details.latest_version('aurora'), query),
+        'test_builds':        firefox_details.get_filtered_test_builds(firefox_details.latest_version('release'), query),
+        'test_builds_esr':    firefox_details.get_filtered_test_builds(firefox_details.latest_version('esr'), query),
+        'test_builds_beta':   firefox_details.get_filtered_test_builds(firefox_details.latest_version('beta'), query),
+        'test_builds_aurora': firefox_details.get_filtered_test_builds(firefox_details.latest_version('aurora'), query),
+        'full_builds_locales': firefox_details.get_filtered_available_locales(query),
         'query': query,
     })
